@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mediscreen-v1';
+  title = 'Mediscreen-v1';
+  isAuthApp = false;
 }

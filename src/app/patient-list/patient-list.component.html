@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Liste des patients</h2>
+      <ul class="list-group">
+        <app-patient *ngFor="let patient of patients; let i = index"
+                     [indexOfPatient]="i"
+                     [patientLastName]="patient.lastName"
+                     [patientFirstName]="patient.firstName"
+                     [patientBirthDate]="patient.birthDate"
+                     [patientSex]="patient.sex"
+                     [patientAddress]="patient.address"
+                     [patientPhone]="patient.phone"
+                     [id]="patient.id">
+        </app-patient>
+ <!--       <app-patient [patientLastName]=" patientLastName1"></app-patient>
+        <app-patient [patientLastName]="patientLastName2"></app-patient>
+        <app-patient [patientLastName]="patientLastName3"></app-patient>-->
+      </ul>
+      <button class="btn btn-success" [disabled]="!isAuthAppPatientList" (click)="onAjouter()">AJouter un patient</button>
+      <button class="btn btn-danger" (click)="onTest()">switch</button>
+    </div>
+  </div>
+</div>
