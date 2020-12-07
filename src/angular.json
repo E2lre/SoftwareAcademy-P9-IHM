@@ -1,0 +1,13 @@
+"my-app": {
+  "root": "",
+  "sourceRoot": "src",
+  "projectType": "application",
+  "prefix": "app",
+  "schematics": {},
+  "architect": {
+  "serve": {
+    "options": {
+        "proxyConfig": "src/proxy.conf.json"
+      }
+    }
+}

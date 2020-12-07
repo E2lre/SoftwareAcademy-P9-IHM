@@ -14,6 +14,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthService} from './services/auth.service';
 import { FourOFourComponent } from './four-o-four/four-o-four.component';
 import {AuthGuard} from './services/auth-guard.service';
+import {HttpClientModule} from '@angular/common/http';
+
 const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
   {path:'patients/:id',canActivate: [AuthGuard],component: PatientViewComponent},
@@ -35,6 +37,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

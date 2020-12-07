@@ -7,8 +7,9 @@
   <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} {{ patientFirstName }} - Birthdate : {{ patientBirthDate}} - Sex : {{ patientSex }} - Address : {{ patientAddress }} - Phone {{ patientPhone }}</h4>
 -->
   <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} {{ patientFirstName }}</h4>
-  <h5 [ngStyle]="{color:getColor()}">Birthdate : {{ patientBirthDate}} - Sex : {{ patientSex }}</h5>
+  <h5 [ngStyle]="{color:getColor()}">Birthdate : {{ patientBirthDate | date: 'dd/MM/YYYY'}} - Sex : {{ patientSex }}</h5>
   <h5 [ngStyle]="{color:getColor()}">Address : {{ patientAddress }} - Phone {{ patientPhone }}</h5>
-  <a [routerLink]="[id]">Détail</a>
+
   <button class="btn btn-warning" (click)="onSwitchName()">SwitchName</button>
+  <h5><a [routerLink]="[id]">Détail patient {{id}}</a></h5>
 </li>
