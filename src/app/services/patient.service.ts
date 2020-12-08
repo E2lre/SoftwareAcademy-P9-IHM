@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
@@ -91,8 +91,22 @@ export class PatientService {
 
   getPatientsFromServer() {
     console.log('getPatientsFromServer- start');
-   this.httpClient
-          .get<any[]>('http://localhost:8081/patients')
+ /*   const headers_object = new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded')
+                                            .append('Authorization', 'Basic ' + btoa('utilisateur' + ':' + 'mdp'));*/
+
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    headers_object.append('Authorization', 'Basic' + btoa('utilisateur:mdp'));
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    this.httpClient
+          .get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
+          //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
+          //.get<any[]>('http://localhost:9004/microservice-patients/patients')
+          //.get<any[]>('http://localhost:8081/patients')
           .subscribe((reponse) =>{
             console.log('getPatientsFromServer - recup info');
             this.patients = reponse;
