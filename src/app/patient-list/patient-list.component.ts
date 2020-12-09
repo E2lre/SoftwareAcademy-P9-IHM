@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PatientService} from '../services/patient.service';
 import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -18,7 +19,7 @@ export class PatientListComponent implements OnInit {
   patients: any[];
   patientSubscription: Subscription;
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientService: PatientService,private router:Router) {
 
     /*TOTO : A remplacer par l'authentification*/
 
@@ -31,7 +32,7 @@ export class PatientListComponent implements OnInit {
 
   onAjouter(){
     console.log('On ajoute un patient');
-    console.log('test');
+    this.router.navigate(['patient-add']);
   }
   onCharger(){
     console.log('Démarage du chargement des donnée');

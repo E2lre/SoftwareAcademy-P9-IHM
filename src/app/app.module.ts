@@ -15,11 +15,16 @@ import {AuthService} from './services/auth.service';
 import { FourOFourComponent } from './four-o-four/four-o-four.component';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpClientModule} from '@angular/common/http';
+import { PatientAddComponent } from './patient-add/patient-add.component';
+import { PatientErreurComponent } from './patient-erreur/patient-erreur.component';
 
 const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
   {path:'patients/:id',canActivate: [AuthGuard],component: PatientViewComponent},
   {path:'auth',component: AuthComponent},
+  {path:'patient-add',component:PatientAddComponent},
+  {path:'patient-view',component:PatientViewComponent},
+  {path:'patient-Erreur',component:PatientErreurComponent},
   {path:'',component:PatientListComponent},
   {path:'not-found',component:FourOFourComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -32,7 +37,10 @@ const appRoutes: Routes = [
     PatientComponent,
     AuthComponent,
     PatientViewComponent,
-    FourOFourComponent
+    PatientAddComponent,
+    FourOFourComponent,
+    PatientAddComponent,
+    PatientErreurComponent
   ],
   imports: [
     BrowserModule,

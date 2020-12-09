@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {PatientService} from '../services/patient.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-patient',
@@ -22,7 +23,7 @@ export class PatientComponent implements OnInit {
   @Input() patientPhone: string;
 
   @Input() indexOfPatient: number;
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService, private router:Router) { }
 
   ngOnInit(): void {
 
@@ -40,5 +41,9 @@ export class PatientComponent implements OnInit {
   }
   onSwitchName (){
     this.patientService.switchNameOne(this.indexOfPatient);
+  }
+  onDetail (){
+    console.log('On retourne à la liste.');
+    this.router.navigate(['patient-view']);
   }
 }

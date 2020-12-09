@@ -10,6 +10,6 @@
   <h5 [ngStyle]="{color:getColor()}">Birthdate : {{ patientBirthDate | date: 'dd/MM/YYYY'}} - Sex : {{ patientSex }}</h5>
   <h5 [ngStyle]="{color:getColor()}">Address : {{ patientAddress }} - Phone {{ patientPhone }}</h5>
 
-  <button class="btn btn-warning" (click)="onSwitchName()">SwitchName</button>
+  <button class="btn btn-primary" (click)="onDetail()">Detail du patient</button>
   <h5><a [routerLink]="[id]">Détail patient {{id}}</a></h5>
 </li>
