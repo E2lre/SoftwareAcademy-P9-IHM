@@ -33,17 +33,23 @@ export class PatientComponent implements OnInit {
     return this.patientLastName;
   }
   getColor() {
-    if (this.patientSex === "M") {
+/*    if (this.patientSex === "M") {
       return 'blue';
     } else {
       return 'pink';
-    }
+    }*/
   }
   onSwitchName (){
     this.patientService.switchNameOne(this.indexOfPatient);
   }
-  onDetail (){
-    console.log('On retourne à la liste.');
+  onDetail (id:number){
+    console.log('On va au détail pour id :'+ id);
+    this.patientService.setCurrentId(id);
     this.router.navigate(['patient-view']);
+  }
+  onUpdate (id:number){
+    console.log('On va au détail pour id :'+ id);
+    this.patientService.setCurrentId(id);
+    this.router.navigate(['patient-upd']);
   }
 }

@@ -5,7 +5,7 @@
       <button class="btn btn-primary" (click)="onAjouter()">Ajouter un patient</button>
       <ul class="list-group">
         <app-patient *ngFor="let patient of patients; let i = index"
-                     [indexOfPatient]="i"
+                     [indexOfPatient]="patient.id"
                      [patientLastName]="patient.lastName"
                      [patientFirstName]="patient.firstName"
                      [patientBirthDate]="patient.birthdate"
@@ -20,7 +20,10 @@
       </ul>
       <button type="button" class="btn btn-primary" data-placement="top" (click)="onAjouter()" data-toggle="tooltip">Ajouter un patient</button>
       <button type="button" class="btn btn-primary" data-placement="top" [disabled]="!isAuthAppPatientList" (click)="onCharger()" data-toggle="tooltip">Charger les patients</button>
-      <button class="btn btn-danger" (click)="onTest()">switch</button>
+      <!--<button class="btn btn-danger" (click)="onTest()">switch</button>-->
     </div>
   </div>
 </div>
+
+
+<!--[indexOfPatient]="i"-->

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PatientService} from '../services/patient.service';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-patient-add',
@@ -17,7 +17,9 @@ export class PatientAddComponent implements OnInit {
   address: string = "address par défaut";
   phone: string = "0000000000";
 
-  patient: any[];
+  patient: any;
+  patientUpd: any;
+  patientSubscription: Subscription;
   constructor(private patientService: PatientService, private router:Router) { }
 
   onAjouter(){

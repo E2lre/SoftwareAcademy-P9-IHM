@@ -45,13 +45,13 @@ export class PatientListComponent implements OnInit {
   ngOnInit(): void {
 //   this.patients = this.patientService.patients;
 
-    this.patientSubscription = this.patientService.patientSubject.subscribe(
+    this.patientSubscription = this.patientService.patientsSubject.subscribe(
       (patients: any[]) =>{
         this.patients = patients;
       }
     );
     this.patientService.getPatientsFromServer(); // Chargement des données sur l'API au démarrage
-    this.patientService.emitPatientSubject();
+    this.patientService.emitPatientsSubject();
   }
 
 }

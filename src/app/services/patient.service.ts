@@ -52,7 +52,8 @@ export interface Patient {
 @Injectable()
 export class PatientService {
 
-  patientSubject = new Subject<any[]>();
+  patientsSubject = new Subject<any[]>();
+  patientSubject = new Subject<any>();
   //private patients =[
   private patients =[
     {
@@ -100,13 +101,34 @@ export class PatientService {
     address : "address",
     phone : "phone"
   }
+  //TODO : verifier si on peut fusionner patient et patientUpd
+  private patientUpd = {
+    id : 0,
+    firstName: 'firstName',
+    lastName: 'lastName',
+    birthdate: '01/01/2000',
+    sex : "sex",
+    address : "address",
+    phone : "phone"
+  }
   private errorMessage:string;
-
+  private currentId:number;
   constructor(private httpClient: HttpClient, private router:Router) { }
+  emitPatientsSubject(){
+    //console.log('emitPatientsSubject - start');
+    this.patientsSubject.next(this.patients.slice());
+    //console.log('emitPatientsSubject - end');
+  }
   emitPatientSubject(){
     //console.log('emitPatientSubject - start');
-    this.patientSubject.next(this.patients.slice());
+    this.patientSubject.next(this.patientUpd);
     //console.log('emitPatientSubject - end');
+  }
+  getCurrentId(){
+    return this.currentId;
+  }
+  setCurrentId(id: number) {
+    this.currentId = id;
   }
   getPatientById(id:number){
     const patient = this.patients.find(
@@ -114,18 +136,22 @@ export class PatientService {
         return patientObject.id === id;
       }
     );
+    this.patientUpd = patient;
     return patient;
+  }
+  getPatientCurent(){
+    return this.patientUpd;
   }
   switchName(){
     for(let patient of this.patients) {
       patient.firstName='Bilou';
     }
-    this.emitPatientSubject();
+    this.emitPatientsSubject();
   }
   switchNameOne(index: number) {
     console.log('tut');
     this.patients[index].firstName= 'Hola !';
-    this.emitPatientSubject();
+    this.emitPatientsSubject();
   }
   getErrorMessage(){
     return this.errorMessage;
@@ -155,7 +181,7 @@ export class PatientService {
             console.log('getPatientsFromServer - recup info');
             this.patients = reponse;
             console.log('getPatientsFromServer - recup ok');
-            this.emitPatientSubject();
+            this.emitPatientsSubject();
             console.log('getPatientsFromServer - recup exit');
             },
             (error) => {
@@ -164,6 +190,43 @@ export class PatientService {
             }
           );
   }
+
+  findPatientById(id:number) {
+    console.log('getPatientById- start id='+id);
+    /*   const headers_object = new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded')
+                                               .append('Authorization', 'Basic ' + btoa('utilisateur' + ':' + 'mdp'));*/
+
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    headers_object.append('Authorization', 'Basic' + btoa('utilisateur:mdp'));
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    this.httpClient
+      //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
+      //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
+      //.get<any[]>('http://localhost:9004/microservice-patients/patients')
+      //.get<any[]>('http://localhost:8081/patient/'+ id)
+      .get<any>('http://localhost:8081/patient/'+ id)
+      .subscribe((reponse) =>{
+          console.log('findPatientById - recup info');
+          this.patientUpd = reponse;
+          console.log('findPatientById - recup ok');
+          console.log('findPatientById - value'+this.patientUpd.firstName + ' - ' + this.patientUpd.lastName);
+          this.emitPatientSubject();
+          console.log('findPatientById - recup exit');
+        },
+        (error) => {
+          console.log('findPatientById Erreur ! : ' + error);
+          this.router.navigate(['fourofour']);
+        }
+      );
+    console.log('findPatientById'+this.patientUpd.firstName + ' - ' + this.patientUpd.lastName);
+    return this.patientUpd;
+  }
+
   addPatientToServer(lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
     console.log('addPatientToServer- start');
     console.log(lastName);
@@ -184,6 +247,7 @@ export class PatientService {
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
           console.log(response.status);
+          //this.emitPatientsSubject();
         },
       (error) => {
         console.log('addPatientToServer Erreur ! : ' + error.status + " " + error.message);
@@ -197,64 +261,58 @@ export class PatientService {
           }
           this.router.navigate(['patient-Erreur']);
         }
-/*        map((response: Response) => {
-          console.log('addPatientToServer Status ! : '+ response.status);
-
-        });*/
-        //this.router.navigate(['fourofour']);
       }
     );
-
-    /*  .subscribe(
-        (reponse) =>{
-          console.log('getPatientsFromServer - recup info');
-         },
-        (error) => {
-          console.log('Erreur ! : ' + error);*/
-          /*map((response: Response) => {
-              console.log('Status ! : '+ response.status);
-                      })*/
-
-      /*.pipe(map(response => {
-        console.log('addPatientToServer-call' + response.status);
-            })
-          )*/
-/*      .subscribe(
-        (error) => {
-          console.log('Erreur ! : ');
-          console.log(error);
-          this.router.navigate(['fourofour']);
-        }
-      );*/
-         /* if (res.status === 201) {
-            return [{ status: res.status, json: res }]
-          }
-          else if (res.status === 200) {
-            return [{ status: res.status, json: res }]
-          }
-        }*/
-/*      .map((response: Response) => {
-        this.responseStatus = response.status;
-        return this.extractData(response);
-      })
-      .catch(this.handleError);*/
-
-    /*this.httpClient
-      .post('http://localhost:8081/patient', this.patient,{observe: 'response'})
-      .subscribe(
-        response => {
-          console.log(response.status);
-          console.log('addPatientToServer- resp');
-        }
-        /!*() => {
-          console.log('Enregistrement terminé !');
-        }*!/
-        /!*,
-        (error) => {
-          console.log('Erreur ! : ' + error);
-      this.router.navigate(['fourofour']);
-        }*!/
-      );*/
+    this.getPatientsFromServer();
     console.log('addPatientToServer- END');
+  }
+
+  updPatientToServer(id:number, lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
+    console.log('updPatientToServer- start'+id);
+
+    this.patientUpd.id = id;
+    this.patientUpd.lastName = lastName;
+    this.patientUpd.firstName = firstName;
+    this.patientUpd.birthdate = birthdate;
+    this.patientUpd.sex = sex;
+    this.patientUpd.address = address;
+    this.patientUpd.phone = phone;
+
+    console.log('updPatientToServer- datas affected');
+    console.log(this.patientUpd.id);
+    console.log(this.patientUpd.lastName);
+    console.log(this.patientUpd.firstName);
+    console.log(this.patientUpd.birthdate);
+    console.log(this.patientUpd.sex);
+    console.log(this.patientUpd.address);
+    console.log(this.patientUpd.phone);
+
+
+    this.httpClient
+      //    .post('http://localhost:8081/patient', this.patient,{observe: 'response'})
+      .put('http://localhost:8081/patient', this.patientUpd,{observe: 'response'})
+      .subscribe(response =>{
+          console.log('updPatientToServer - recup info');
+          console.log(response.status);
+          //this.emitPatientsSubject();
+          this.emitPatientSubject();
+        },
+        (error) => {
+          console.log('updPatientToServer Erreur ! : ' + error.status + " " + error.message);
+          if (error.status !== 202)  {
+            if (error.status === 304) {
+              console.log('updPatientToServer tu es mal barré');
+              this.errorMessage = 'Patient already exist : '+ error.status + error.message;
+            } else {
+              console.log('updPatientToServer tu es mal barré');
+              this.errorMessage = ' Technical error : '+ error.status + error.message ;
+            }
+            this.router.navigate(['patient-Erreur']);
+          }
+        }
+      );
+    this.getPatientsFromServer();
+    this.emitPatientsSubject();
+    console.log('updPatientToServer- END');
   }
 }

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Update a patient </h2>
+      <h3><a routerLink="/patients"> retour à la liste</a></h3>
+      <li class="list-group-item">
+        <!--<h6>Patient Id : {{id}}</h6>
+        <h4>Lastname : {{lastName}}</h4>
+        <h4>Firstname : <input type="text" class="form-control" [(ngModel)]="firstName"></h4>
+        <h4>Birthdate : <input type="text" class="form-control" [(ngModel)]="birthdate"></h4>
+        <h4>Sex : <input type="text" class="form-control" [(ngModel)]="sex"></h4>
+        <h4>Address : <input type="text" class="form-control" [(ngModel)]="address"></h4>
+        <h4>Phone : <input type="text" class="form-control" [(ngModel)]="phone"></h4>-->
+        <h6>Patient Id : {{patientUpd.id}}</h6>
+        <h4>Lastname : {{patientUpd.lastName}}</h4>
+        <h4>Firstname : <input type="text" class="form-control" [(ngModel)]="patientUpd.firstName"></h4>
+        <h4>Birthdate : <input type="text" class="form-control" [(ngModel)]="patientUpd.birthdate"></h4>
+        <h4>Sex : <input type="text" class="form-control" [(ngModel)]="patientUpd.sex"></h4>
+        <h4>Address : <input type="text" class="form-control" [(ngModel)]="patientUpd.address"></h4>
+        <h4>Phone : <input type="text" class="form-control" [(ngModel)]="patientUpd.phone"></h4>
+      </li>
+    </div>
+    <!--
+        <button class="btn btn-success" [disabled]="!isAuthAppPatientList" (click)="onAjouter()">Ajouter le patient</button>
+    -->
+    <button class="btn btn-primary" (click)="onUpdate()">Update</button>
+    <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+
+  </div>
+</div>
