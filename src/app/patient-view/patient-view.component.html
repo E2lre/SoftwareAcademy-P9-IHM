@@ -4,21 +4,11 @@
       <h2>Patient {{patientUpd.id}} info </h2>
 
       <li class="list-group-item">
-        <h4>Name : {{patientUpd.lastName}} - {{patientUpd.firstName}}</h4>
-        <h4>Birthdate : {{patientUpd.birthdate | date: 'dd/MM/YYYY'}} - Sex : {{patientUpd.sex}}</h4>
-        <h4>Address : {{patientUpd.address}}</h4>
-        <h4>Phone : {{patientUpd.phone}}</h4>
-
+        <h4><b>Name : </b>{{patientUpd.lastName}}<b> - </b>{{patientUpd.firstName}}</h4>
+        <h4><b>Birthdate : </b>{{patientUpd.birthdate | date: 'dd/MM/YYYY'}}<b> - Sex : </b>{{patientUpd.sex}}</h4>
+        <h4><b>Address : </b>{{patientUpd.address}}</h4>
+        <h4><b>Phone : </b>{{patientUpd.phone}}</h4>
       </li>
-  <!--    <h2>Patient {{id}} info </h2>
-
-      <li class="list-group-item">
-        <h4>Name : {{lastName}} - {{firstName}}</h4>
-        <h4>Birthdate : {{birthdate | date: 'dd/MM/YYYY'}} - Sex : {{sex}}</h4>
-        <h4>Address : {{address}}</h4>
-        <h4>Phone : {{phone}}</h4>
-
-      </li>-->
 
       <button class="btn btn-primary" (click)="onBack()">Back to the list</button>
     </div>

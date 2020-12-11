@@ -175,8 +175,8 @@ export class PatientService {
     this.httpClient
           //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
           //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
-          //.get<any[]>('http://localhost:9004/microservice-patients/patients')
-          .get<any[]>('http://localhost:8081/patients')
+          .get<any[]>('http://localhost:9004/microservice-patients/patients')
+          //.get<any[]>('http://localhost:8081/patients')
           .subscribe((reponse) =>{
             console.log('getPatientsFromServer - recup info');
             this.patients = reponse;
@@ -206,10 +206,8 @@ export class PatientService {
 
     this.httpClient
       //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients')
-      //.get<any[]>('http://localhost:8081/patient/'+ id)
-      .get<any>('http://localhost:8081/patient/'+ id)
+      .get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: headers_object})
+      //.get<any>('http://localhost:8081/patient/'+ id)
       .subscribe((reponse) =>{
           console.log('findPatientById - recup info');
           this.patientUpd = reponse;
@@ -242,13 +240,13 @@ export class PatientService {
     console.log('addPatientToServer- datas affected');
 
     this.httpClient
-  //    .post('http://localhost:8081/patient', this.patient,{observe: 'response'})
-      .post('http://localhost:8081/patient', this.patient,{observe: 'response'})
+      .post('http://localhost:9004/microservice-patients/patient/', this.patient,{observe: 'response'})
+      //.post('http://localhost:8081/patient', this.patient,{observe: 'response'})
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
           console.log(response.status);
           this.getPatientsFromServer();
-          //this.emitPatientsSubject();
+          this.emitPatientsSubject();
         },
       (error) => {
         console.log('addPatientToServer Erreur ! : ' + error.status + " " + error.message);
@@ -265,6 +263,7 @@ export class PatientService {
       }
     );
     this.getPatientsFromServer();
+    this.emitPatientsSubject();
     console.log('addPatientToServer- END');
   }
 
@@ -290,8 +289,8 @@ export class PatientService {
 
 
     this.httpClient
-      //    .post('http://localhost:8081/patient', this.patient,{observe: 'response'})
-      .put('http://localhost:8081/patient', this.patientUpd,{observe: 'response'})
+      .put('http://localhost:9004/microservice-patients/patient/', this.patientUpd,{observe: 'response'})
+      //.put('http://localhost:8081/patient', this.patientUpd,{observe: 'response'})
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
           console.log(response.status);
@@ -341,7 +340,8 @@ export class PatientService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: this.patientUpd};
     this.httpClient
-      .delete<any>('http://localhost:8081/patient/'+ id,httpOptions)
+      .delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
+      //.delete<any>('http://localhost:8081/patient/'+ id,httpOptions)
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
           console.log(response.status);

@@ -1,7 +1,7 @@
 <li class="list-group-item">
 
-  <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} - {{ patientFirstName }}</h4>
-  <h5 [ngStyle]="{color:getColor()}">Id : {{id}} - Birthdate : {{ patientBirthDate | date: 'dd/MM/YYYY'}} - Sex : {{ patientSex }} - Address : {{ patientAddress }} - Phone {{ patientPhone }}</h5>
+  <h4 [ngStyle]="{color:getColor()}"><b>Patient : </b>{{ getPatientLastName() }} <b>-</b> {{ patientFirstName }}</h4>
+  <h5 [ngStyle]="{color:getColor()}"><b>Id : </b>{{id}}<b> - Birthdate : </b>{{ patientBirthDate | date: 'dd/MM/YYYY'}}<b> - Sex : </b>{{ patientSex }}<b> - Address : </b>{{ patientAddress }}<b> - Phone </b>{{ patientPhone }}</h5>
 
 
   <button class="btn btn-primary" (click)="onDetail(id)">Info ...</button>
