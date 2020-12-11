@@ -247,6 +247,7 @@ export class PatientService {
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
           console.log(response.status);
+          this.getPatientsFromServer();
           //this.emitPatientsSubject();
         },
       (error) => {
@@ -296,6 +297,57 @@ export class PatientService {
           console.log(response.status);
           //this.emitPatientsSubject();
           this.emitPatientSubject();
+          this.getPatientsFromServer();
+        },
+        (error) => {
+          console.log('updPatientToServer Erreur ! : ' + error.status + " " + error.message);
+          if (error.status !== 202)  {
+            if (error.status === 304) {
+              console.log('updPatientToServer tu es mal barré');
+              this.errorMessage = 'Patient already exist : '+ error.status + error.message;
+            } else {
+              console.log('updPatientToServer tu es mal barré');
+              this.errorMessage = ' Technical error : '+ error.status + error.message ;
+            }
+            this.router.navigate(['patient-Erreur']);
+          }
+        }
+      );
+    this.getPatientsFromServer();
+    this.emitPatientsSubject();
+    console.log('updPatientToServer- END');
+  }
+
+  deletePatientToServer(id:number, lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
+    console.log('updPatientToServer- start'+id);
+
+    this.patientUpd.id = id;
+    this.patientUpd.lastName = lastName;
+    this.patientUpd.firstName = firstName;
+    this.patientUpd.birthdate = birthdate;
+    this.patientUpd.sex = sex;
+    this.patientUpd.address = address;
+    this.patientUpd.phone = phone;
+
+    console.log('updPatientToServer- datas affected');
+    console.log(this.patientUpd.id);
+    console.log(this.patientUpd.lastName);
+    console.log(this.patientUpd.firstName);
+    console.log(this.patientUpd.birthdate);
+    console.log(this.patientUpd.sex);
+    console.log(this.patientUpd.address);
+    console.log(this.patientUpd.phone);
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: this.patientUpd};
+    this.httpClient
+      .delete<any>('http://localhost:8081/patient/'+ id,httpOptions)
+      .subscribe(response =>{
+          console.log('updPatientToServer - recup info');
+          console.log(response.status);
+          //this.emitPatientsSubject();
+          this.emitPatientSubject();
+          this.getPatientsFromServer();
         },
         (error) => {
           console.log('updPatientToServer Erreur ! : ' + error.status + " " + error.message);

@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Delete Patient {{patient.id}} </h2>
+
+      <li class="list-group-item">
+        <h4>Name : {{patient.lastName}} - {{patient.firstName}}</h4>
+        <h4>Birthdate : {{patient.birthdate | date: 'dd/MM/YYYY'}} - Sex : {{patient.sex}}</h4>
+        <h4>Address : {{patient.address}}</h4>
+        <h4>Phone : {{patient.phone}}</h4>
+
+      </li>
+      <button class="btn btn-primary" (click)="onDelete()">Delete</button>
+      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</div>

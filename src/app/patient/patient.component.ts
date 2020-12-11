@@ -52,4 +52,9 @@ export class PatientComponent implements OnInit {
     this.patientService.setCurrentId(id);
     this.router.navigate(['patient-upd']);
   }
+  onDelete (id:number){
+    console.log('On va au détail pour id :'+ id);
+    this.patientService.setCurrentId(id);
+    this.router.navigate(['patient-del']);
+  }
 }

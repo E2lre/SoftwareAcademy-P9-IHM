@@ -1,20 +1,10 @@
 <li class="list-group-item">
-<!--  <div
-    style="width:20px;height:20px;background-color:blue;"
-    *ngIf="patientSex ==='M'">
-  </div>-->
-<!--
-  <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} {{ patientFirstName }} - Birthdate : {{ patientBirthDate}} - Sex : {{ patientSex }} - Address : {{ patientAddress }} - Phone {{ patientPhone }}</h4>
--->
-  <!--<h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} {{ patientFirstName }}</h4>
-  <h5 [ngStyle]="{color:getColor()}">Id : {{id}} - Birthdate : {{ patientBirthDate | date: 'dd/MM/YYYY'}} - Sex : {{ patientSex }}</h5>
-  <h5 [ngStyle]="{color:getColor()}">Address : {{ patientAddress }} - Phone {{ patientPhone }}</h5>-->
-  <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} {{ patientFirstName }}</h4>
+
+  <h4 [ngStyle]="{color:getColor()}">Patient : {{ getPatientLastName() }} - {{ patientFirstName }}</h4>
   <h5 [ngStyle]="{color:getColor()}">Id : {{id}} - Birthdate : {{ patientBirthDate | date: 'dd/MM/YYYY'}} - Sex : {{ patientSex }} - Address : {{ patientAddress }} - Phone {{ patientPhone }}</h5>
 
 
-  <button class="btn btn-primary" (click)="onDetail(id)">Info</button>
-<!--  <h5><a [routerLink]="[id]">Info {{id}}</a></h5>
-  <h5><a [routerLink]="[id]">Update {{id}}</a></h5>-->
-  <button class="btn btn-primary" (click)="onUpdate(id)">Udpate</button>
+  <button class="btn btn-primary" (click)="onDetail(id)">Info ...</button>
+  <button class="btn btn-primary" (click)="onUpdate(id)">Udpate ...</button>
+  <button class="btn btn-primary" (click)="onDelete(id)">Delete ...</button>
 </li>

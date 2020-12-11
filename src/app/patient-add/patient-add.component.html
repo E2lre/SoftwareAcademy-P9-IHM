@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h2>Ajout d'un patient </h2>
-      <h3><a routerLink="/patients"> retour à la liste</a></h3>
+      <h2>Add patient </h2>
       <li class="list-group-item">
         <h4>Lastname : <input type="text" class="form-control" [(ngModel)]="lastName"></h4>
         <h4>Firstname : <input type="text" class="form-control" [(ngModel)]="firstName"></h4>
@@ -16,8 +15,8 @@
 <!--
     <button class="btn btn-success" [disabled]="!isAuthAppPatientList" (click)="onAjouter()">Ajouter le patient</button>
 -->
-    <button class="btn btn-primary" (click)="onAjouter()">Ajouter le patient</button>
-    <button class="btn btn-secondary" (click)="onRetourner()">Retourner à la Liste</button>
+    <button class="btn btn-primary" (click)="onAjouter()">Add</button>
+    <button class="btn btn-secondary" (click)="onRetourner()">Cancel</button>
 
   </div>
 </div>

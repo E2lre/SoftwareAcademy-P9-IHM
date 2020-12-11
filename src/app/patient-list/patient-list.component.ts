@@ -39,9 +39,7 @@ export class PatientListComponent implements OnInit {
     this.patientService.getPatientsFromServer();
     console.log('Fin du chargement des donnée');
   }
-  onTest(){
-    this.patientService.switchName();
-  }
+
   ngOnInit(): void {
 //   this.patients = this.patientService.patients;
 

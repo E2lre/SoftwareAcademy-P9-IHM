@@ -18,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { PatientAddComponent } from './patient-add/patient-add.component';
 import { PatientErreurComponent } from './patient-erreur/patient-erreur.component';
 import { PatientUpdComponent } from './patient-upd/patient-upd.component';
+import { PatientDelComponent } from './patient-del/patient-del.component';
 
 const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   {path:'auth',component: AuthComponent},
   {path:'patient-add',component:PatientAddComponent},
   {path:'patient-upd',component:PatientUpdComponent},
+  {path:'patient-del',component:PatientDelComponent},
   {path:'patient-view',component:PatientViewComponent},
   {path:'patient-Erreur',component:PatientErreurComponent},
   {path:'',component:PatientListComponent},
@@ -43,8 +45,10 @@ const appRoutes: Routes = [
     FourOFourComponent,
     PatientAddComponent,
     PatientUpdComponent,
+    PatientDelComponent,
     PatientErreurComponent,
-    PatientUpdComponent
+    PatientUpdComponent,
+    PatientDelComponent
   ],
   imports: [
     BrowserModule,

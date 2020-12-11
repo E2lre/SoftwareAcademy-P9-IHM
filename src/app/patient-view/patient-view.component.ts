@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PatientService} from '../services/patient.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class PatientViewComponent implements OnInit {
   patientUpd: any;
   patient: any;
   patientSubscription: Subscription;
-  constructor(private patientService: PatientService, private route: ActivatedRoute) { }
+  constructor(private patientService: PatientService, private router:Router) { }
 
   ngOnInit(): void {
     this.patientSubscription = this.patientService.patientSubject.subscribe(
@@ -39,23 +39,10 @@ export class PatientViewComponent implements OnInit {
     this.phone = this.patientUpd.phone;
     this.patientService.emitPatientSubject();
 
-    /*const id = this.route.snapshot.params['id'];
-    const patient = this.patientService.getPatientById(+id);
-
-    this.id = this.patientService.getPatientCurent().id;
-    this.lastName = patient.lastName;
-    this.firstName = patient.firstName;
-    this.birthdate = patient.birthdate;
-    this.sex = patient.sex;
-    this.address = patient.address;
-    this.phone = patient.phone;*/
-    /*this.lastName = this.patientService.getPatientById(+id).lastName;
-    this.firstName = this.patientService.getPatientById(+id).firstName;
-    this.birthdate = this.patientService.getPatientById(+id).birthdate;
-    this.sex = this.patientService.getPatientById(+id).sex;
-    this.address = this.patientService.getPatientById(+id).address;
-    this.phone = this.patientService.getPatientById(+id).phone;*/
 
   }
-
+  onBack(){
+    console.log('View - onBack');
+    this.router.navigate(['patients']);
+  }
 }
