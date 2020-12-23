@@ -44,7 +44,8 @@ export interface ReponsePatientList {
 export interface Patient {
   lastName: string;
   firstName: string;
-  birthdate: string;
+ /* birthdate: string;*/
+  birthdate: Date;
   sex: string;
   address: string;
   phone: string
@@ -82,7 +83,7 @@ export class PatientService {
       sex : "M",
       address : "place du ruisseau",
       phone : "0567891234"
-    },
+    }
   ];
   /*export interface Patient {
     lastName: string='';
@@ -96,7 +97,7 @@ export class PatientService {
   private patient = {
     firstName: 'firstName',
     lastName: 'lastName',
-    birthdate: '01/01/2000',
+    birthdate: '01-01-2000',
     sex : "sex",
     address : "address",
     phone : "phone"
@@ -175,8 +176,8 @@ export class PatientService {
     this.httpClient
           //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
           //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
-          .get<any[]>('http://localhost:9004/microservice-patients/patients')
-          //.get<any[]>('http://localhost:8081/patients')
+          //.get<any[]>('http://localhost:9004/microservice-patients/patients')
+          .get<any[]>('http://localhost:8082/patients')
           .subscribe((reponse) =>{
             console.log('getPatientsFromServer - recup info');
             this.patients = reponse;
@@ -206,13 +207,14 @@ export class PatientService {
 
     this.httpClient
       //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
-      .get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: headers_object})
-      //.get<any>('http://localhost:8081/patient/'+ id)
+      //.get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: headers_object})
+      .get<any>('http://localhost:8082/patient/'+ id)
       .subscribe((reponse) =>{
           console.log('findPatientById - recup info');
           this.patientUpd = reponse;
           console.log('findPatientById - recup ok');
           console.log('findPatientById - value'+this.patientUpd.firstName + ' - ' + this.patientUpd.lastName);
+          console.log('findPatientById - birthdate'+this.patientUpd.birthdate );
           this.emitPatientSubject();
           console.log('findPatientById - recup exit');
         },
@@ -225,14 +227,14 @@ export class PatientService {
     return this.patientUpd;
   }
 
-  addPatientToServer(lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
+  addPatientToServer(lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('addPatientToServer- start');
     console.log(lastName);
     this.patient.phone ='123';
 
     this.patient.lastName = lastName;
     this.patient.firstName = firstName;
-    this.patient.birthdate = birthdate;
+    this.patient.birthdate = birthdate.toString();
     this.patient.sex = sex;
     this.patient.address = address;
     this.patient.phone = phone;
@@ -240,8 +242,8 @@ export class PatientService {
     console.log('addPatientToServer- datas affected');
 
     this.httpClient
-      .post('http://localhost:9004/microservice-patients/patient/', this.patient,{observe: 'response'})
-      //.post('http://localhost:8081/patient', this.patient,{observe: 'response'})
+      //.post('http://localhost:9004/microservice-patients/patient/', this.patient,{observe: 'response'})
+      .post('http://localhost:8082/patient', this.patient,{observe: 'response'})
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
           console.log(response.status);
@@ -267,13 +269,13 @@ export class PatientService {
     console.log('addPatientToServer- END');
   }
 
-  updPatientToServer(id:number, lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
+  updPatientToServer(id:number, lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('updPatientToServer- start'+id);
 
     this.patientUpd.id = id;
     this.patientUpd.lastName = lastName;
     this.patientUpd.firstName = firstName;
-    this.patientUpd.birthdate = birthdate;
+    this.patientUpd.birthdate = birthdate.toString();
     this.patientUpd.sex = sex;
     this.patientUpd.address = address;
     this.patientUpd.phone = phone;
@@ -289,8 +291,8 @@ export class PatientService {
 
 
     this.httpClient
-      .put('http://localhost:9004/microservice-patients/patient/', this.patientUpd,{observe: 'response'})
-      //.put('http://localhost:8081/patient', this.patientUpd,{observe: 'response'})
+      //.put('http://localhost:9004/microservice-patients/patient/', this.patientUpd,{observe: 'response'})
+      .put('http://localhost:8082/patient', this.patientUpd,{observe: 'response'})
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
           console.log(response.status);
@@ -317,13 +319,13 @@ export class PatientService {
     console.log('updPatientToServer- END');
   }
 
-  deletePatientToServer(id:number, lastName: string,firstName: string,birthdate: string,sex: string,address: string,phone: string) {
+  deletePatientToServer(id:number, lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('updPatientToServer- start'+id);
 
     this.patientUpd.id = id;
     this.patientUpd.lastName = lastName;
     this.patientUpd.firstName = firstName;
-    this.patientUpd.birthdate = birthdate;
+    this.patientUpd.birthdate = birthdate.toString();
     this.patientUpd.sex = sex;
     this.patientUpd.address = address;
     this.patientUpd.phone = phone;
@@ -340,8 +342,8 @@ export class PatientService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: this.patientUpd};
     this.httpClient
-      .delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
-      //.delete<any>('http://localhost:8081/patient/'+ id,httpOptions)
+      //.delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
+      .delete<any>('http://localhost:8082/patient/'+ id,httpOptions)
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
           console.log(response.status);

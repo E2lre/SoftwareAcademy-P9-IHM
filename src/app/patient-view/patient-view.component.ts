@@ -12,7 +12,7 @@ export class PatientViewComponent implements OnInit {
   id: number = 0;
   lastName:String ='lastname par defaut';
   firstName:String ='firstname par defaut';
-  birthdate: String = 'birthdate par défaut';
+  birthdate: Date;//String = 'birthdate par défaut';
   sex: String = 'sex par defaut';
   address: String = "address par défaut";
   phone: String = "phone par defaut";

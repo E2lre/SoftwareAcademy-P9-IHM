@@ -148,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "mediscreen-v1"
+  "defaultProject": "mediscreen-v1",
+  "cli": {
+    "analytics": "0fd5c954-741d-4803-a96f-a72fa2ebda61"
+  }
 }

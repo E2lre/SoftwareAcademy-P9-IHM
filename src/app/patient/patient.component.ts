@@ -14,7 +14,7 @@ export class PatientComponent implements OnInit {
   //patientFirstName: string ='Eric';
   @Input() patientFirstName:string;
   //patientBirthDate: string ='24/10/1968';
-  @Input() patientBirthDate: string;
+  @Input() patientBirthDate: Date;
   //patientSex: string ='M';
   @Input() patientSex: string;
   //patientAddress: string ='1 rue du test';

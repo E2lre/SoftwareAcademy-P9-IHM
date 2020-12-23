@@ -12,7 +12,7 @@ export class PatientAddComponent implements OnInit {
 
   lastName:string ='lastname par defaut';
   firstName:string ='firstname par defaut';
-  birthdate: string = '1966-12-30'//yyyy-MM-dd'T'HH:mm:ss.SSSX '01/01/1900';
+  birthdate: Date; //= '1966-12-30'//yyyy-MM-dd'T'HH:mm:ss.SSSX '01/01/1900';
   sex: string = 'X';
   address: string = "address par défaut";
   phone: string = "0000000000";
