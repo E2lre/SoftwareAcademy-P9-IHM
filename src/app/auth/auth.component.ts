@@ -27,6 +27,9 @@ export class AuthComponent implements OnInit {
     this.patientService.signIn(this.username,this.password);
     //this.authService.signIn(this.username,this.password);
     console.log('connexion !');
+    if (this.patientService.getIsAuth()){
+      this.authService.signIn();
+    }
     //this.authStatus = this.authService.isAuth;
     this.authStatus = this.patientService.getIsAuth();
     this.tocken = this.patientService.getTocken();
@@ -35,7 +38,8 @@ export class AuthComponent implements OnInit {
     console.log('onSignin - patientService.authStatus : ' + this.patientService.getIsAuth());
     console.log('onSignin - authStatus : ' + this.authStatus);
     this.authStatus = this.patientService.getIsAuth();
-    this.authService.isAuth = this.patientService.getIsAuth();
+    //this.authService.isAuth = this.patientService.getIsAuth();
+    //this.authService.signIn();
     this.router.navigate(['patients']);
 
   }

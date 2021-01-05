@@ -117,7 +117,9 @@ export class PatientService {
   }
   private errorMessage:string;
   private currentId:number;
+
   constructor(private httpClient: HttpClient, private router:Router) { }
+
   emitPatientsSubject(){
     //console.log('emitPatientsSubject - start');
     this.patientsSubject.next(this.patients.slice());
@@ -171,22 +173,7 @@ export class PatientService {
   }
   getPatientsFromServer() {
     console.log('getPatientsFromServer- start');
- /*   const headers_object = new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded')
-                                            .append('Authorization', 'Basic ' + btoa('utilisateur' + ':' + 'mdp'));*/
-    const body = JSON.stringify({username: "utilisateur", password: "mdp"});
-    var headers_object = new HttpHeaders();
-    headers_object.append('Content-Type', 'application/json');
-    //headers_object.append("Authorization", "Basic" + btoa("username:password"));
-    //headers_object.append("Authorization", "Basic" + btoa("utilisateur:mdp"));
-    //headers_object.append("Authorization", "Basic "+this.tocken);
-    //headers_object.append("Authorization", "Bearer "+this.tocken);
-    headers_object.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b3RvIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYwOTg2MTQzNCwiZXhwIjoxNjA5ODY1MDM0fQ.CpetWe1QIrcr2XkwgE9aOvubyJr8RJ1sDTJQvwcWwdc");
-    //headers_object.append("Authorization", "Basic" + btoa("C9FFDB5CB32C89C2C2B596C58A5485C6"));
-    //headers_object.append("Authorization", "Basic" + $base64.encode("utilisateur:mdp"));
 
-    const httpOptions = {
-      headers: headers_object
-    };
 
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -194,13 +181,6 @@ export class PatientService {
     });
 
     this.httpClient
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',body,{headers: headers_object})
-          //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
-          //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
-          //.get<any[]>('http://localhost:9004/microservice-patients/patients')
-        //.get<any[]>('http://localhost:8082/patients',{headers: headers_object})
-      //.get<any[]>('http://localhost:8082/patients',httpOptions)
-      //.get<any[]>('http://localhost:8082/patients')
       .get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: reqHeader})
       //.get<any[]>('http://localhost:8082/patients',{headers: reqHeader})
           .subscribe((reponse) =>{
@@ -221,16 +201,6 @@ export class PatientService {
 
   findPatientById(id:number) {
     console.log('getPatientById- start id='+id);
-    /*   const headers_object = new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded')
-                                               .append('Authorization', 'Basic ' + btoa('utilisateur' + ':' + 'mdp'));*/
-
-/*    var headers_object = new HttpHeaders();
-    headers_object.append('Content-Type', 'application/json');
-    headers_object.append('Authorization', 'Basic' + btoa('utilisateur:mdp'));
-
-    const httpOptions = {
-      headers: headers_object
-    };*/
 
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -238,11 +208,8 @@ export class PatientService {
     });
 
     this.httpClient
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
-      //.get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: headers_object})
       .get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: reqHeader})
       //.get<any>('http://localhost:8082/patient/'+ id,{headers: reqHeader})
-      //.get<any>('http://localhost:8082/patient/'+ id)
       .subscribe((reponse) =>{
           console.log('findPatientById - recup info');
           this.patientUpd = reponse;
@@ -282,15 +249,13 @@ export class PatientService {
       'Authorization': 'Bearer ' + this.tocken
     });
     this.httpClient
-      //.post('http://localhost:9004/microservice-patients/patient/', this.patient,{observe: 'response'})
-     // .post('http://localhost:8082/patient', this.patient,{observe: 'response'})
       .post('http://localhost:9004/microservice-patients/patient', this.patient,{observe: 'response',headers: reqHeader})
       //.post('http://localhost:8082/patient', this.patient,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
           console.log(response.status);
-          this.getPatientsFromServer();
           this.emitPatientsSubject();
+          this.getPatientsFromServer();
         },
       (error) => {
         console.log('addPatientToServer Erreur ! : ' + error.status + " " + error.message);
@@ -337,7 +302,6 @@ export class PatientService {
     });
 
     this.httpClient
-      //.put('http://localhost:9004/microservice-patients/patient/', this.patientUpd,{observe: 'response'})
       .put('http://localhost:9004/microservice-patients/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
       //.put('http://localhost:8082/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
@@ -389,13 +353,11 @@ export class PatientService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.tocken }), body: this.patientUpd};
     this.httpClient
-      //.delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
       .delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
       //.delete<any>('http://localhost:8082/patient/'+ id,httpOptions)
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
           console.log(response.status);
-          //this.emitPatientsSubject();
           this.emitPatientSubject();
           this.getPatientsFromServer();
         },
@@ -424,10 +386,6 @@ export class PatientService {
     console.log('signin - start');
 
     this.httpClient
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',body,{headers: headers_object})
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',httpOptions)
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: headers_object})
-      //.get<any[]>('http://localhost:9004/microservice-patients/patients')
       .get<string>('http://localhost:9004/microservice-patients/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
       //.get<string>('http://localhost:8082/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
       .subscribe((reponse) =>{
@@ -436,11 +394,11 @@ export class PatientService {
           console.log('signin - recup ok - tocken : ' + this.tocken);
           this.isAuth = true;
           this.emitPatientsSubject();
+          this.getPatientsFromServer();
           console.log('signin - recup exit');
         },
         (error) => {
           console.log('signin Erreur ! : ' + error);
-          //this.router.navigate(['fourofour']);
           this.errorMessage = ' Technical error on signin. Status : '+ error.status + " Message : "+error.message ;
           this.router.navigate(['patient-Erreur']);
         }
