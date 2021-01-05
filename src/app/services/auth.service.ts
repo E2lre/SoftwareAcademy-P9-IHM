@@ -1,7 +1,10 @@
+
+
 export class AuthService{
   isAuth = false;
+  //private tocken;
+  signIn(username: string, pwd: string){
 
-  signIn(){
          this.isAuth = true;
   }
   signOut(){

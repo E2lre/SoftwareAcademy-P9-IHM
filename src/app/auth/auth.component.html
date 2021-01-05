@@ -1,4 +1,10 @@
-<p>auth works!</p>
 <h2>Authentification</h2>
+<div class="col-xs-12">
+  <li class="list-group-item">
+    <h4><b>Lastname : </b><input type="text" class="form-control" [(ngModel)]="username"></h4>
+    <h4><b>Firstname : </b><input type="text" class="form-control" [(ngModel)]="password"></h4>
+  </li>
+  <h5>Tocken : {{tocken}}</h5>
+</div>
 <button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">Connexion</button>
 <button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">Déconnexion</button>
