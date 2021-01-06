@@ -405,8 +405,54 @@ export class PatientService {
       );
 
   }
-  signOut()
+  signUp(username: string, password: string)
   {
+    console.log('signOut - start');
+
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.tocken
+    });
+    this.httpClient
+      //.post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password',{observe: 'response',headers: reqHeader})
+      .post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password,{observe: 'response'})
+      //.post('http://localhost:8082/patient', this.patient,{observe: 'response',headers: reqHeader})
+      .subscribe(response =>{
+          console.log('signOut - recup info');
+          //console.log(response. status);
+          this.emitPatientsSubject();
+          this.getPatientsFromServer();
+        },
+        (error) => {
+          console.log('signOut Erreur ! : ' + error.status + " " + error.message);
+          if (error.status === 201) {
+            this.router.navigate(['auth']);
+          } else {
+            if (error.status === 406) {
+              console.log('The user '+ username +' already exist (406)');
+              this.errorMessage = 'The user '+ username +' already exist (406)' ;
+              return false;
+            } else {
+              if(error.status === 403) {
+                console.log('Acces forbidden, please connect first (403)');
+                this.errorMessage = 'Acces forbidden, please connect first (403)' ;
+                return false;
+              }else {
+                console.log('signOut tu es mal baré');
+                this.errorMessage = ' Technical error : ' + error.status + error.message;
+                //return false;
+                this.router.navigate(['patient-Erreur']);
+              }
+            }
+          }
+        }
+      );
+    this.getPatientsFromServer();
+    this.emitPatientsSubject();
+    console.log('addPatientToServer- END');
     this.isAuth = false;
+    return true;
   }
+  signOut()
+  {}
 }

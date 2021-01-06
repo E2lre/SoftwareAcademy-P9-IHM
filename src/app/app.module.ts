@@ -9,6 +9,7 @@ import { PatientComponent } from './patient/patient.component';
 
 import {PatientService} from './services/patient.service';
 import { AuthComponent } from './auth/auth.component';
+import {AuthSignupComponent} from './auth-signup/auth-signup.component';
 import { PatientViewComponent } from './patient-view/patient-view.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthService} from './services/auth.service';
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
   {path:'patients/:id',canActivate: [AuthGuard],component: PatientViewComponent},
   {path:'auth',component: AuthComponent},
+  {path:'auth-signup',component: AuthSignupComponent},
   {path:'patient-add',component:PatientAddComponent},
   {path:'patient-upd',component:PatientUpdComponent},
   {path:'patient-del',component:PatientDelComponent},
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
     PatientListComponent,
     PatientComponent,
     AuthComponent,
+    AuthSignupComponent,
     PatientViewComponent,
     PatientAddComponent,
     FourOFourComponent,
