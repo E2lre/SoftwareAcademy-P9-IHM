@@ -5,6 +5,9 @@
     <h4><b>Password : </b><input type="password" class="form-control" placeholder="password" [(ngModel)]="password"></h4>
   </li>
   <h5>Tocken : {{tocken}}</h5>
+  <div class="form-group has-error">
+    <label class="control-label" >{{errorMessage}}</label>
+  </div>
 </div>
 <button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()">SignIn</button>
 <button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()">SignOut</button>

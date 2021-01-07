@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PatientService} from "../services/patient.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-auth-signup',
@@ -14,15 +15,28 @@ export class AuthSignupComponent implements OnInit {
   username:string ='';
   password:string ='';
   errorMessage:string = '';
+  errorMessageSubject: Subscription;
   resultSignUp: boolean;
   constructor(private patientService: PatientService, private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
     this.errorMessage ='';
+    this.errorMessageSubject = this.patientService.errorMessageSubject.subscribe(
+      (errorMessage: any) =>{
+        this.errorMessage = errorMessage;
+      }
+    );
+    this.patientService.emiterrorMessageSubjectSubject();
   }
   onSignUp(){
     this.patientService.signUp(this.username,this.password);
-    this.errorMessage = this.patientService.getErrorMessage();
+    //this.errorMessage = this.patientService.getErrorMessage();
+  /*  this.errorMessageSubject = this.patientService.errorMessageSubject.subscribe(
+      (errorMessage: any) =>{
+        this.errorMessage = errorMessage;
+      }
+    );*/
+    //this.patientService.emiterrorMessageSubjectSubject();
    /* if (this.resultSignUp) {
       this.router.navigate(['auth']);
     }*/

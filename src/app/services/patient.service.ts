@@ -56,8 +56,12 @@ export class PatientService {
 
   patientsSubject = new Subject<any[]>();
   patientSubject = new Subject<any>();
-  tocken="";
-  isAuth=false;
+  errorMessageSubject = new Subject<any>();
+  tockenSubject = new Subject<any>();
+  isAuthSubject = new Subject<any>();
+
+  private tocken="";
+  private isAuth=false;
   //private patients =[
   private patients =[
     {
@@ -98,12 +102,18 @@ export class PatientService {
   }*/
   //private patient: Patient;
   private patient = {
-    firstName: 'firstName',
-    lastName: 'lastName',
-    birthdate: '01-01-2000',
-    sex : "sex",
-    address : "address",
-    phone : "phone"
+    firstName: '',
+    lastName: '',
+    birthdate: '',
+    sex : "",
+    address : "",
+    phone : ""
+    /*firstName: 'firstName',
+  lastName: 'lastName',
+  birthdate: '01-01-2000',
+  sex : "sex",
+  address : "address",
+  phone : "phone"*/
   }
   //TODO : verifier si on peut fusionner patient et patientUpd
   private patientUpd = {
@@ -129,6 +139,24 @@ export class PatientService {
     //console.log('emitPatientSubject - start');
     this.patientSubject.next(this.patientUpd);
     //console.log('emitPatientSubject - end');
+  }
+
+  emiterrorMessageSubjectSubject(){
+
+    this.errorMessageSubject.next(this.errorMessage);
+
+  }
+
+  emitTockenSubjectSubject(){
+
+    this.tockenSubject.next(this.tocken);
+
+  }
+
+  emitIsAuthSubjectSubject(){
+
+    this.isAuthSubject.next(this.isAuth);
+
   }
   getCurrentId(){
     return this.currentId;
@@ -173,7 +201,14 @@ export class PatientService {
   }
   getPatientsFromServer() {
     console.log('getPatientsFromServer- start');
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
 
+    console.log('getPatientsFromServer - isAuth:' + this.isAuth); /// pour eviter un rebond lors du signup . a supprimer
+    if (this.isAuth===false){
+      console.log('getPatientsFromServer - Eject !');
+      this.router.navigate(['auth']);
+    }
 
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -194,6 +229,7 @@ export class PatientService {
               console.log('getPatientsFromServer Erreur ! : ' + error);
               //this.router.navigate(['fourofour']);
               this.errorMessage = ' Technical error on getPatientsFromServer. Status : '+ error.status + " Message : "+error.message ;
+              this.emiterrorMessageSubjectSubject();
               this.router.navigate(['patient-Erreur']);
             }
           );
@@ -201,6 +237,9 @@ export class PatientService {
 
   findPatientById(id:number) {
     console.log('getPatientById- start id='+id);
+
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
 
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -223,6 +262,7 @@ export class PatientService {
           console.log('findPatientById Erreur ! : ' + error);
           //this.router.navigate(['fourofour']);
           this.errorMessage = ' Technical error on findPatientById : '+ error.status + error.message ;
+          this.emiterrorMessageSubjectSubject();
           this.router.navigate(['patient-Erreur']);
         }
       );
@@ -233,6 +273,10 @@ export class PatientService {
   addPatientToServer(lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('addPatientToServer- start');
     console.log(lastName);
+
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
+
     this.patient.phone ='123';
 
     this.patient.lastName = lastName;
@@ -263,9 +307,11 @@ export class PatientService {
           if (error.status === 304) {
             console.log('addPatientToServer tu es mal baré');
             this.errorMessage = 'Patient already exist : '+ error.status + error.message;
+            this.emiterrorMessageSubjectSubject();
           } else {
             console.log('addPatientToServer tu es mal baré');
             this.errorMessage = ' Technical error : '+ error.status + error.message ;
+            this.emiterrorMessageSubjectSubject();
           }
           this.router.navigate(['patient-Erreur']);
         }
@@ -278,6 +324,9 @@ export class PatientService {
 
   updPatientToServer(id:number, lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('updPatientToServer- start'+id);
+
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
 
     this.patientUpd.id = id;
     this.patientUpd.lastName = lastName;
@@ -317,9 +366,11 @@ export class PatientService {
             if (error.status === 304) {
               console.log('updPatientToServer tu es mal barré');
               this.errorMessage = 'Patient already exist : '+ error.status + error.message;
+              this.emiterrorMessageSubjectSubject();
             } else {
               console.log('updPatientToServer tu es mal barré');
               this.errorMessage = ' Technical error : '+ error.status + error.message ;
+              this.emiterrorMessageSubjectSubject();
             }
             this.router.navigate(['patient-Erreur']);
           }
@@ -332,6 +383,9 @@ export class PatientService {
 
   deletePatientToServer(id:number, lastName: string,firstName: string,birthdate: Date,sex: string,address: string,phone: string) {
     console.log('updPatientToServer- start'+id);
+
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
 
     this.patientUpd.id = id;
     this.patientUpd.lastName = lastName;
@@ -367,9 +421,11 @@ export class PatientService {
             if (error.status === 304) {
               console.log('updPatientToServer tu es mal barré');
               this.errorMessage = 'Patient already exist : '+ error.status + error.message;
+              this.emiterrorMessageSubjectSubject();
             } else {
               console.log('updPatientToServer tu es mal barré');
               this.errorMessage = ' Technical error : '+ error.status + error.message ;
+              this.emiterrorMessageSubjectSubject();
             }
             this.router.navigate(['patient-Erreur']);
           }
@@ -385,6 +441,9 @@ export class PatientService {
 
     console.log('signin - start');
 
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
+
     this.httpClient
       .get<string>('http://localhost:9004/microservice-patients/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
       //.get<string>('http://localhost:8082/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
@@ -395,19 +454,32 @@ export class PatientService {
           this.isAuth = true;
           this.emitPatientsSubject();
           this.getPatientsFromServer();
+          this.emitTockenSubjectSubject();
+          this.emitIsAuthSubjectSubject();
           console.log('signin - recup exit');
+          this.router.navigate(['patients']);
         },
         (error) => {
-          console.log('signin Erreur ! : ' + error);
-          this.errorMessage = ' Technical error on signin. Status : '+ error.status + " Message : "+error.message ;
-          this.router.navigate(['patient-Erreur']);
+          if (error.status === 404) {
+            console.log('The user '+ username +' does not exist or incorrect passord (404)');
+            this.errorMessage = 'The user '+ username +' does not exist or incorrect passord (404)';
+            this.emiterrorMessageSubjectSubject();
+          } else {
+            console.log('signin Erreur ! : ' + error);
+            this.errorMessage = ' Technical error on signin. Status : ' + error.status + " Message : " + error.message;
+            this.emiterrorMessageSubjectSubject();
+            //this.router.navigate(['patient-Erreur']);
+          }
         }
       );
 
   }
   signUp(username: string, password: string)
   {
-    console.log('signOut - start');
+    console.log('signUp - start');
+
+    this.errorMessage = '' ;
+    this.emiterrorMessageSubjectSubject();
 
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -418,30 +490,35 @@ export class PatientService {
       .post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password,{observe: 'response'})
       //.post('http://localhost:8082/patient', this.patient,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
-          console.log('signOut - recup info');
+          console.log('signUp - recup info');
           //console.log(response. status);
           this.emitPatientsSubject();
           this.getPatientsFromServer();
         },
         (error) => {
-          console.log('signOut Erreur ! : ' + error.status + " " + error.message);
+          console.log('signUp Erreur ! : ' + error.status + " " + error.message);
           if (error.status === 201) {
+            this.errorMessage = 'User ' + username +' created' ;
+            this.emiterrorMessageSubjectSubject();
             this.router.navigate(['auth']);
           } else {
             if (error.status === 406) {
               console.log('The user '+ username +' already exist (406)');
               this.errorMessage = 'The user '+ username +' already exist (406)' ;
+              this.emiterrorMessageSubjectSubject();
               return false;
             } else {
               if(error.status === 403) {
-                console.log('Acces forbidden, please connect first (403)');
+                console.log('signUp-Acces forbidden, please connect first (403)');
                 this.errorMessage = 'Acces forbidden, please connect first (403)' ;
+                this.emiterrorMessageSubjectSubject();
                 return false;
               }else {
-                console.log('signOut tu es mal baré');
+                console.log('signUp-Technical error');
                 this.errorMessage = ' Technical error : ' + error.status + error.message;
-                //return false;
-                this.router.navigate(['patient-Erreur']);
+                this.emiterrorMessageSubjectSubject();
+                return false;
+                //this.router.navigate(['patient-Erreur']);
               }
             }
           }
@@ -449,10 +526,15 @@ export class PatientService {
       );
     this.getPatientsFromServer();
     this.emitPatientsSubject();
-    console.log('addPatientToServer- END');
+    console.log('signUp- END');
     this.isAuth = false;
     return true;
   }
   signOut()
-  {}
+  {
+    this.tocken="";
+    this.isAuth=false;
+    this.errorMessage ='';
+    this.emiterrorMessageSubjectSubject();
+  }
 }

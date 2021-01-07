@@ -10,12 +10,18 @@ import {Subscription} from 'rxjs';
 })
 export class PatientViewComponent implements OnInit {
   id: number = 0;
-  lastName:String ='lastname par defaut';
+  lastName:String ='';
+  firstName:String ='';
+  birthdate: Date;//String = 'birthdate par défaut';
+  sex: String = '';
+  address: String = "";
+  phone: String = "";
+  /*lastName:String ='lastname par defaut';
   firstName:String ='firstname par defaut';
   birthdate: Date;//String = 'birthdate par défaut';
   sex: String = 'sex par defaut';
   address: String = "address par défaut";
-  phone: String = "phone par defaut";
+  phone: String = "phone par defaut";*/
 
   patientUpd: any;
   patient: any;

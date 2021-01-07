@@ -10,12 +10,19 @@ import {Subject, Subscription} from 'rxjs';
 })
 export class PatientAddComponent implements OnInit {
 
-  lastName:string ='lastname par defaut';
+  lastName:string ='';
+  firstName:string ='';
+  birthdate: Date; //= '1966-12-30'//yyyy-MM-dd'T'HH:mm:ss.SSSX '01/01/1900';
+  sex: string = '';
+  address: string = "";
+  phone: string = "";
+
+  /*lastName:string ='lastname par defaut';
   firstName:string ='firstname par defaut';
   birthdate: Date; //= '1966-12-30'//yyyy-MM-dd'T'HH:mm:ss.SSSX '01/01/1900';
   sex: string = 'X';
   address: string = "address par défaut";
-  phone: string = "0000000000";
+  phone: string = "0000000000";*/
 
   patient: any;
   patientUpd: any;
