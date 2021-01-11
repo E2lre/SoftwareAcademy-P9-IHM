@@ -216,23 +216,24 @@ export class PatientService {
     });
 
     this.httpClient
-      .get<any[]>('http://localhost:9004/microservice-patients/patients',{headers: reqHeader})
+      .get<any[]>('http://localhost:9004/microservice-patients/patients', {headers: reqHeader})
       //.get<any[]>('http://localhost:8082/patients',{headers: reqHeader})
-          .subscribe((reponse) =>{
-            console.log('getPatientsFromServer - recup info');
-            this.patients = reponse;
-            console.log('getPatientsFromServer - recup ok');
-            this.emitPatientsSubject();
-            console.log('getPatientsFromServer - recup exit');
-            },
-            (error) => {
-              console.log('getPatientsFromServer Erreur ! : ' + error);
-              //this.router.navigate(['fourofour']);
-              this.errorMessage = ' Technical error on getPatientsFromServer. Status : '+ error.status + " Message : "+error.message ;
-              this.emiterrorMessageSubjectSubject();
-              this.router.navigate(['patient-Erreur']);
-            }
-          );
+      .subscribe((reponse) => {
+          console.log('getPatientsFromServer - recup info');
+          this.patients = reponse;
+          console.log('getPatientsFromServer - recup ok');
+          this.emitPatientsSubject();
+          console.log('getPatientsFromServer - recup exit');
+        },
+        (error) => {
+          console.log('getPatientsFromServer Erreur ! : ' + error);
+          //this.router.navigate(['fourofour']);
+          this.errorMessage = ' Technical error on getPatientsFromServer. Status : ' + error.status + " Message : " + error.message;
+          this.emiterrorMessageSubjectSubject();
+          this.router.navigate(['patient-Erreur']);
+        }
+      );
+
   }
 
   findPatientById(id:number) {
@@ -493,7 +494,7 @@ export class PatientService {
           console.log('signUp - recup info');
           //console.log(response. status);
           this.emitPatientsSubject();
-          this.getPatientsFromServer();
+          //this.getPatientsFromServer();
         },
         (error) => {
           console.log('signUp Erreur ! : ' + error.status + " " + error.message);
@@ -524,7 +525,7 @@ export class PatientService {
           }
         }
       );
-    this.getPatientsFromServer();
+    //this.getPatientsFromServer();
     this.emitPatientsSubject();
     console.log('signUp- END');
     this.isAuth = false;
