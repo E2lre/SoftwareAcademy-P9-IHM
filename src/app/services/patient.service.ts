@@ -216,7 +216,8 @@ export class PatientService {
     });
 
     this.httpClient
-      .get<any[]>('http://localhost:9004/microservice-patients/patients', {headers: reqHeader})
+      .get<any[]>('http://localhost:9004/microservice-patientsv2/patients', {headers: reqHeader})
+      //.get<any[]>('http://localhost:9004/microservice-patients/patients', {headers: reqHeader})
       //.get<any[]>('http://localhost:8082/patients',{headers: reqHeader})
       .subscribe((reponse) => {
           console.log('getPatientsFromServer - recup info');
@@ -248,7 +249,8 @@ export class PatientService {
     });
 
     this.httpClient
-      .get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: reqHeader})
+      .get<any>('http://localhost:9004/microservice-patientsv2/patient/'+ id,{headers: reqHeader})
+      //.get<any>('http://localhost:9004/microservice-patients/patient/'+ id,{headers: reqHeader})
       //.get<any>('http://localhost:8082/patient/'+ id,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('findPatientById - recup info');
@@ -294,7 +296,8 @@ export class PatientService {
       'Authorization': 'Bearer ' + this.tocken
     });
     this.httpClient
-      .post('http://localhost:9004/microservice-patients/patient', this.patient,{observe: 'response',headers: reqHeader})
+      .post('http://localhost:9004/microservice-patientsv2/patient', this.patient,{observe: 'response',headers: reqHeader})
+      //.post('http://localhost:9004/microservice-patients/patient', this.patient,{observe: 'response',headers: reqHeader})
       //.post('http://localhost:8082/patient', this.patient,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
         console.log('addPatientToServer - recup info');
@@ -352,7 +355,8 @@ export class PatientService {
     });
 
     this.httpClient
-      .put('http://localhost:9004/microservice-patients/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
+      .put('http://localhost:9004/microservice-patientsv2/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
+      //.put('http://localhost:9004/microservice-patients/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
       //.put('http://localhost:8082/patient', this.patientUpd,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
@@ -408,7 +412,8 @@ export class PatientService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.tocken }), body: this.patientUpd};
     this.httpClient
-      .delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
+      .delete<any>('http://localhost:9004/microservice-patientsv2/patient/'+ id,httpOptions)
+      //.delete<any>('http://localhost:9004/microservice-patients/patient/'+ id,httpOptions)
       //.delete<any>('http://localhost:8082/patient/'+ id,httpOptions)
       .subscribe(response =>{
           console.log('updPatientToServer - recup info');
@@ -446,7 +451,8 @@ export class PatientService {
     this.emiterrorMessageSubjectSubject();
 
     this.httpClient
-      .get<string>('http://localhost:9004/microservice-patients/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
+      .get<string>('http://localhost:9004/microservice-user/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
+      //.get<string>('http://localhost:9004/microservice-patients/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
       //.get<string>('http://localhost:8082/signin?username='+username+'&pwd='+pwd,{responseType: 'text' as 'json'})
       .subscribe((reponse) =>{
           console.log('signin - recup info');
@@ -487,8 +493,8 @@ export class PatientService {
       'Authorization': 'Bearer ' + this.tocken
     });
     this.httpClient
-      //.post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password',{observe: 'response',headers: reqHeader})
-      .post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password,{observe: 'response'})
+      .post('http://localhost:9004/microservice-user/signup?username='+username+'&pwd='+password,{observe: 'response'})
+      //.post('http://localhost:9004/microservice-patients/signup?username='+username+'&pwd='+password,{observe: 'response'})
       //.post('http://localhost:8082/patient', this.patient,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
           console.log('signUp - recup info');
