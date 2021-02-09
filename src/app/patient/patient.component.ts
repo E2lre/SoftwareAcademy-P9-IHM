@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {PatientService} from '../services/patient.service';
 import {Router} from '@angular/router';
+import {NoteService} from "../services/note.services";
 
 @Component({
   selector: 'app-patient',
@@ -23,7 +24,7 @@ export class PatientComponent implements OnInit {
   @Input() patientPhone: string;
 
   @Input() indexOfPatient: number;
-  constructor(private patientService: PatientService, private router:Router) { }
+  constructor(private patientService: PatientService, private noteService: NoteService, private router:Router) { }
 
   ngOnInit(): void {
 
@@ -56,5 +57,10 @@ export class PatientComponent implements OnInit {
     console.log('On va au détail pour id :'+ id);
     this.patientService.setCurrentId(id);
     this.router.navigate(['patient-del']);
+  }
+  onNotes (id:number){
+    console.log('On va a la note le patient id :'+ id);
+    this.patientService.setCurrentId(id);
+    this.router.navigate(['notes']);
   }
 }

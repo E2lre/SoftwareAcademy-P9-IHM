@@ -20,6 +20,9 @@ import { PatientAddComponent } from './patient-add/patient-add.component';
 import { PatientErreurComponent } from './patient-erreur/patient-erreur.component';
 import { PatientUpdComponent } from './patient-upd/patient-upd.component';
 import { PatientDelComponent } from './patient-del/patient-del.component';
+import { NoteComponent } from './note/note.component';
+import { NoteListComponent } from './note-list/note-list.component';
+import {NoteService} from "./services/note.services";
 
 const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
@@ -31,6 +34,7 @@ const appRoutes: Routes = [
   {path:'patient-del',component:PatientDelComponent},
   {path:'patient-view',component:PatientViewComponent},
   {path:'patient-Erreur',component:PatientErreurComponent},
+  {path:'notes',canActivate: [AuthGuard],component:NoteListComponent},
   {path:'',component:PatientListComponent},
   {path:'not-found',component:FourOFourComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -51,7 +55,9 @@ const appRoutes: Routes = [
     PatientDelComponent,
     PatientErreurComponent,
     PatientUpdComponent,
-    PatientDelComponent
+    PatientDelComponent,
+    NoteComponent,
+    NoteListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +69,8 @@ const appRoutes: Routes = [
   providers: [
     PatientService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    NoteService
   ],
   bootstrap: [AppComponent]
 })

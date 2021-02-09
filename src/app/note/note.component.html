@@ -1,0 +1,12 @@
+<li class="list-group-item">
+
+  <h5 [ngStyle]="{color:getColor()}"><b>Date : </b>{{ noteDate | date: 'dd/MM/yyyy'}} <b> - Id : </b>{{noteId}}</h5>
+ <!-- <h5 [ngStyle]="{color:getColor()}"><b>Date : </b>{{ noteDate | date: 'dd/MM/yyyy'}} <b> - Id : </b>{{noteId}}</h5>
+-->
+  <h4 [ngStyle]="{color:getColor()}"><b> Comment : </b>{{ noteText }}</h4>
+
+
+  <button class="btn btn-primary" (click)="onUpdate(noteId)">Udpate ...</button>
+  <button class="btn btn-primary" (click)="onDelete(noteId)">Delete ...</button>
+
+</li>

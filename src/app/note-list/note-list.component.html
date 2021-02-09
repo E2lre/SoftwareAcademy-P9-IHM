@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Note List</h2>
+      <h4> <b>Patient :</b>{{ patient.id }} <b>-</b> {{ patient.lastName }} {{ patient.firstName }} <b> - Birthdate :</b> {{ patient.birthdate| date: 'dd/MM/yyyy' }}</h4>
+      <button class="btn btn-primary" (click)="onAjouter()">Add note ...</button>
+      <button class="btn btn-primary" (click)="onPatientList()">Patient list ...</button>
+      <ul class="list-group">
+        <app-note *ngFor="let note of notes; let i = index"
+                     [noteId]="note.id"
+                     [noteText]="note.textNote"
+                     [noteDate]="note.dateNote">
+        </app-note>
+
+      </ul>
+     </div>
+  </div>
+</div>
+
