@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Delete note  {{note.id}} for Patient <b> - </b>{{patient.id}} {{patient.lastName}}<b> - </b>{{patient.firstName}} </h2>
+
+      <li class="list-group-item">
+        <h4><b>Name : </b>{{patient.lastName}}<b> - </b>{{patient.firstName}}</h4>
+        <h4><b>Birthdate : </b>{{patient.birthdate | date: 'dd/MM/yyyy'}}<b> - Sex : </b>{{patient.sex}}</h4>
+        <h4><b>Address : </b>{{patient.address}}</h4>
+        <h4><b>Phone : </b>{{patient.phone}}</h4>
+      </li>
+      <li class="list-group-item">
+        <h4><b>Note Id : </b>{{note.id}} <b> - date : </b>{{note.dateNote | date: 'dd/MM/yyyy'}}</h4>
+        <h4><b>Comment : </b>{{note.textNote}}</h4>
+      </li>
+      <h2> Are you sure ?</h2>
+      <button class="btn btn-primary" (click)="onDelete(note.id)">Delete</button>
+      <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</div>

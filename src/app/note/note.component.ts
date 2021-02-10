@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {PatientService} from "../services/patient.service";
+import {NoteService} from "../services/note.services";
 
 @Component({
   selector: 'app-note',
@@ -12,21 +14,21 @@ export class NoteComponent implements OnInit {
   //patientBirthDate: string ='24/10/1968';
   @Input() noteDate: Date;
 
-  constructor( private router:Router) { }
+  constructor(private patientService: PatientService, private noteService: NoteService, private router:Router) { }
 
   ngOnInit(): void {
   }
   getColor() {
 
   }
-  onUpdate (id:number){
-    console.log('On va au détail pour noteId :'+ id);
-    //this.patientService.setCurrentId(id);
-    //this.router.navigate(['patient-upd']);
+  onUpdate (noteId:number){
+    console.log('On va au détail pour noteId :'+ noteId);
+    this.noteService.setcurrentNoteId(noteId);
+    this.router.navigate(['note-upd']);
   }
-  onDelete (id:number){
-    console.log('On va au détail pour noteId :'+ id);
-    //this.patientService.setCurrentId(id);
-    //this.router.navigate(['patient-del']);
+  onDelete (noteId:number){
+    console.log('On va au détail pour noteId :'+ noteId);
+    this.noteService.setcurrentNoteId(noteId);
+    this.router.navigate(['note-del']);
   }
 }

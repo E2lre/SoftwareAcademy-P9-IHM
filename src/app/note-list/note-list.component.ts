@@ -65,7 +65,7 @@ export class NoteListComponent implements OnInit {
   }
   onAjouter(){
     console.log('On ajoute une note');
-  //  this.router.navigate(['patient-add']);
+    this.router.navigate(['note-add']);
   }
   onPatientList(){
     console.log('On retourne à la liste des patients');

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Add Note </h2>
+      <h4> <b>Patient :</b>{{ patient.id }} <b>-</b> {{ patient.lastName }} {{ patient.firstName }} <b> - Birthdate :</b> {{ patient.birthdate| date: 'dd/MM/yyyy' }}</h4>
+
+      <li class="list-group-item">
+        <h4>
+          <b>Comment : </b>
+          <input type="text" class="form-control" placeholder="Comment" [(ngModel)]="noteText">
+        </h4>
+      </li>
+    </div>
+    <!--
+        <button class="btn btn-success" [disabled]="!isAuthAppPatientList" (click)="onAjouter()">Ajouter le patient</button>
+    -->
+    <button class="btn btn-primary" (click)="onAdd()">Add</button>
+    <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+
+  </div>
+</div>
