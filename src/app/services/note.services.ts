@@ -158,6 +158,7 @@ export class NoteService{
     this.patientService.setErrorMessage('') ;
     this.patientService.emiterrorMessageSubjectSubject();
 
+    this.note = this.noteEmpty //purge de note pour que note.id soit null
     this.note.patientId = patientId;
     this.note.textNote = noteText;
     this.note.dateNote = '1970-01-01'; //Date in overwrite by microservice
@@ -169,8 +170,8 @@ export class NoteService{
       'Authorization': 'Bearer ' + this.patientService.getTocken()
     });
     this.httpClient
-      .post(' http://localhost:9004/microservice-notes/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
-      //.post('http://localhost:8085/patHistory/d', this.note,{observe: 'response',headers: reqHeader})
+      .post('http://localhost:9004/microservice-notes/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
+      //.post('http://localhost:8085/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
           console.log('addNoteForPatientId - recup info');
           console.log(response.status);
