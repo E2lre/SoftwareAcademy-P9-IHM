@@ -8,20 +8,7 @@ import {PatientService} from "./patient.service";
 export class NoteService{
   notesSubject = new Subject<any[]>();
   noteSubject = new Subject<any>();
-  private notes =[
-  /*  {
-      noteId:'123abc',
-      patientId: 1,
-      noteText: 'texte 1',
-      notedate: '1980-01-01'
-    },
-    {
-      noteId:'999zzz',
-      patientId: 1,
-      noteText: 'Texte 2',
-      notedate: '2021-01-01'
-    }*/
-  ]
+  private notes =[]
   private note = {
     //id: 0,
     patientId: 0,

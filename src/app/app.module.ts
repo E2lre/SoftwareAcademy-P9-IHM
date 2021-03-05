@@ -26,6 +26,8 @@ import {NoteService} from "./services/note.services";
 import { NoteAddComponent } from './note-add/note-add.component';
 import { NoteDelComponent } from './note-del/note-del.component';
 import { NoteUpdComponent } from './note-upd/note-upd.component';
+import { AssessComponent } from './assess/assess.component';
+import {AssessService} from "./services/assess.services";
 
 const appRoutes: Routes = [
   {path:'patients',canActivate: [AuthGuard],component: PatientListComponent},
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
   {path:'note-add',component:NoteAddComponent},
   {path:'note-upd',component:NoteUpdComponent},
   {path:'note-del',component:NoteDelComponent},
+  {path:'assess',component:AssessComponent},
   {path:'',component:PatientListComponent},
   {path:'not-found',component:FourOFourComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -66,7 +69,8 @@ const appRoutes: Routes = [
     NoteListComponent,
     NoteAddComponent,
     NoteDelComponent,
-    NoteUpdComponent
+    NoteUpdComponent,
+    AssessComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,8 @@ const appRoutes: Routes = [
     PatientService,
     AuthService,
     AuthGuard,
-    NoteService
+    NoteService,
+    AssessService
   ],
   bootstrap: [AppComponent]
 })

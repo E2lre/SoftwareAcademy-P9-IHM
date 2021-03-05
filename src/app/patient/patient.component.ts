@@ -59,8 +59,13 @@ export class PatientComponent implements OnInit {
     this.router.navigate(['patient-del']);
   }
   onNotes (id:number){
-    console.log('On va a la note le patient id :'+ id);
+    console.log('On va a la note pour le patient id :'+ id);
     this.patientService.setCurrentId(id);
     this.router.navigate(['notes']);
+  }
+  onAssess (id:number){
+    console.log('On va a l analyse pour le patient id :'+ id);
+    this.patientService.setCurrentId(id);
+    this.router.navigate(['assess']);
   }
 }

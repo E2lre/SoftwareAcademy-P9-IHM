@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+
+     <h2>Patient  {{assess.patientId}} info </h2>
+
+      <li class="list-group-item">
+        <h4><b>Name : </b>{{assess.patientLastName}}<b> - </b>{{assess.patientFirstName}}</h4>
+        <h4><b>Age : </b>{{assess.patientAge}}<!--<b> - Sex : </b>{{assess.patientSex}}--></h4>
+        <h4><b>Assess : </b>{{assess.diabetsAssessmentValue}}<b> - score : </b>{{assess.diabetsAssessmentId}}</h4>
+      </li>
+
+      <button class="btn btn-primary" (click)="onBack()">Back to the list</button>
+    </div>
+  </div>
+</div>

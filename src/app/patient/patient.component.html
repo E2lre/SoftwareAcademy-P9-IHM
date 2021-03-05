@@ -6,8 +6,9 @@
   <h5 [ngStyle]="{color:getColor()}"><b>Id : </b>{{id}}<b> - Birthdate : </b>{{ patientBirthDate| date: 'dd/MM/yyyy' }}<b> - Sex : </b>{{ patientSex }}<b> - Address : </b>{{ patientAddress }}<b> - Phone </b>{{ patientPhone }}</h5>
 
 
-  <button class="btn btn-primary" (click)="onDetail(id)">Info ...</button>
-  <button class="btn btn-primary" (click)="onUpdate(id)">Udpate ...</button>
-  <button class="btn btn-primary" (click)="onDelete(id)">Delete ...</button>
-  <button class="btn btn-primary" (click)="onNotes(id)">Notes ...</button>
+  <button class="btn btn-primary" (click)="onDetail(id)">Info ...</button> &nbsp;
+  <button class="btn btn-primary" (click)="onUpdate(id)">Udpate ...</button> &nbsp;
+  <button class="btn btn-primary" (click)="onDelete(id)">Delete ...</button> &nbsp;
+  <button class="btn btn-primary" (click)="onNotes(id)">Notes ...</button> &nbsp;
+  <button class="btn btn-primary" (click)="onAssess(id)">Assess ...</button>
 </li>
