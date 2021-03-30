@@ -18,6 +18,7 @@ export class PatientListComponent implements OnInit {
 
   patients: any[];
   patientSubscription: Subscription;
+  familyName: string;
 
   constructor(private patientService: PatientService,private router:Router) {
 
@@ -40,6 +41,11 @@ export class PatientListComponent implements OnInit {
     console.log('Fin du chargement des donnée');
   }
 
+  onSearch(){
+    console.log('Démarrage de search');
+    this.patientService.setFamilyName(this.familyName);
+    this.router.navigate(['assess-list']); // A changer
+  }
   ngOnInit(): void {
 //   this.patients = this.patientService.patients;
 

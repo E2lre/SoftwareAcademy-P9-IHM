@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Asses fo Family Name List</h2>
+      <button class="btn btn-primary" (click)="onPatientList()">Patient list ...</button>
+      <ul class="list-group">
+        <app-assess-detail *ngFor="let assess of assesses; let i = index"
+                    [assessPatientLastName]="assess.patientLastName"
+                    [assessPatientFirstName]="assess.patientFirstName"
+                    [assessPatientAge]="assess.patientAge"
+                    [assessDiabetsAssessmentValue]="assess.diabetsAssessmentValue"
+                    [assessDiabetsAssessmentId]="assess.diabetsAssessmentId">
+        </app-assess-detail>
+      </ul>
+    </div>
+  </div>
+</div>

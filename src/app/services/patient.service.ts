@@ -62,6 +62,7 @@ export class PatientService {
 
   private tocken="";
   private isAuth=false;
+  private familyName="";
   //private patients =[
   private patients =[
     {
@@ -164,6 +165,13 @@ export class PatientService {
   setCurrentId(id: number) {
     this.currentId = id;
   }
+  getFamilyName(){
+    return this.familyName;
+  }
+  setFamilyName(familyName: string) {
+    this.familyName = familyName;
+  }
+
   getPatientById(id:number){
     const patient = this.patients.find(
       (patientObject) => {
