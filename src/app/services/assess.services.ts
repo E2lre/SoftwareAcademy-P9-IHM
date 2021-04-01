@@ -39,10 +39,10 @@ export class AssessService{
       'Authorization': 'Bearer ' + this.patientService.getTocken()
     });
     this.httpClient
-      .get<any[]>('http://localhost:9004/microservice-assess/assess/id?id='+ patientId,{headers: reqHeader})
+      .get<any>('http://localhost:9004/microservice-assess/assess/id?id='+ patientId,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('getAssessByPatientId - recup info');
-          this.assesses = reponse;
+          this.assess = reponse;
           console.log('getAssessByPatientId - recup ok');
           this.emitAssessSubject();
           console.log('getAssessByPatientId - score'+ this.assess.diabetsAssessmentId);
@@ -87,7 +87,6 @@ export class AssessService{
           this.assess = reponse;
           console.log('getAssessByFamilyName - recup ok');
           this.emitAssessSubject();
-          //console.log('getAssessByFamilyName - score'+ this.assess.diabetsAssessmentId);
           console.log('getAssessByFamilyName - recup exit');
         },
         (error) => {

@@ -34,6 +34,7 @@ export class AssessComponent implements OnInit {
     this.assess = this.assessService.getAssessByPatientId(this.patientService.getCurrentId());
     this.assessService.emitAssessSubject();
 
+    console.log('assess getAssessByPatientId - patientService.getCurrentId'+this.patientService.getCurrentId());
     console.log('assess getAssessByPatientId - id'+this.assess.patientId);
     console.log('assess getAssessByPatientId - lastName'+this.assess.patientFirstName );
     console.log('assess getAssessByPatientId - firstName'+this.assess.patientLastName );
