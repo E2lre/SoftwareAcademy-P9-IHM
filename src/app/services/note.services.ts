@@ -62,8 +62,8 @@ export class NoteService{
     });
 
     this.httpClient
-      .get<any>('http://localhost:9004/microservice-notes/patientpatHistories/'+ patientId,{headers: reqHeader})
-      //.get<any>('http://localhost:8085/patientpatHistories/'+ patientId,{headers: reqHeader})
+      //.get<any>('http://localhost:9004/microservice-notes/patientpatHistories/'+ patientId,{headers: reqHeader})
+      .get<any>('http://zuul:9004/microservice-notes/patientpatHistories/'+ patientId,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('getNoteListForPatientId - recup info');
           this.notes = reponse;
@@ -106,8 +106,8 @@ export class NoteService{
     });
 
     this.httpClient
-      .get<any>('http://localhost:9004/microservice-notes/patHistory/'+ noteId,{headers: reqHeader})
-      //.get<any>('http://localhost:8085/patHistory/'+ noteId,{headers: reqHeader})
+      //.get<any>('http://localhost:9004/microservice-notes/patHistory/'+ noteId,{headers: reqHeader})
+      .get<any>('http://zuul:9004/microservice-notes/patHistory/'+ noteId,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('getNotebyNoteId - recup info');
           this.note = reponse;
@@ -157,8 +157,8 @@ export class NoteService{
       'Authorization': 'Bearer ' + this.patientService.getTocken()
     });
     this.httpClient
-      .post('http://localhost:9004/microservice-notes/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
-      //.post('http://localhost:8085/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
+      //.post('http://localhost:9004/microservice-notes/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
+      .post('http://zuul:9004/microservice-notes/patHistory/add', this.note,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
           console.log('addNoteForPatientId - recup info');
           console.log(response.status);
@@ -203,8 +203,8 @@ export class NoteService{
     });
 
     this.httpClient
-      .put(' http://localhost:9004/microservice-notes/patHistory', this.note,{observe: 'response',headers: reqHeader})
-      //.put('http://localhost:8085/patHistory', this.noteUpd,{observe: 'response',headers: reqHeader})
+      //.put(' http://localhost:9004/microservice-notes/patHistory', this.note,{observe: 'response',headers: reqHeader})
+      .put(' http://zuul:9004/microservice-notes/patHistory', this.note,{observe: 'response',headers: reqHeader})
       .subscribe(response =>{
           console.log('updateNoteForPatientId - recup info');
           console.log(response.status);
@@ -251,8 +251,8 @@ export class NoteService{
       headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.patientService.getTocken() }), body: this.noteUpd};
 
     this.httpClient
-      .delete<any>('http://localhost:9004/microservice-notes/patHistory', httpOptions)//
-      //.delete<any>('http://localhost:8085/patHistory', httpOptions)
+      //.delete<any>('http://localhost:9004/microservice-notes/patHistory', httpOptions)//
+      .delete<any>('http://zuul:9004/microservice-notes/patHistory', httpOptions)//
       .subscribe(response =>{
           console.log('deleteNoteForPatientId - recup info');
           console.log(response.status);

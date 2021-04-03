@@ -39,7 +39,8 @@ export class AssessService{
       'Authorization': 'Bearer ' + this.patientService.getTocken()
     });
     this.httpClient
-      .get<any>('http://localhost:9004/microservice-assess/assess/id?id='+ patientId,{headers: reqHeader})
+      //.get<any>('http://localhost:9004/microservice-assess/assess/id?id='+ patientId,{headers: reqHeader})
+      .get<any>('http://zuul:9004/microservice-assess/assess/id?id='+ patientId,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('getAssessByPatientId - recup info');
           this.assess = reponse;
@@ -81,7 +82,8 @@ export class AssessService{
       'Authorization': 'Bearer ' + this.patientService.getTocken()
     });
     this.httpClient
-      .get<any>('http://localhost:9004/microservice-assess/assess/familyName?familyName='+ familyName,{headers: reqHeader})
+      //.get<any>('http://localhost:9004/microservice-assess/assess/familyName?familyName='+ familyName,{headers: reqHeader})
+      .get<any>('http://zuul:9004/microservice-assess/assess/familyName?familyName='+ familyName,{headers: reqHeader})
       .subscribe((reponse) =>{
           console.log('getAssessByFamilyName - recup info');
           this.assess = reponse;
